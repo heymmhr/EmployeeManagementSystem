@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+    <div th:replace="~{fragments/navigation :: generic_css}"></div>
+    <div th:replace="~{fragments/navigation :: navbar}"></div>
+
+    <div class="row mt-3" >
+
+        <div class="col-md-6">
+
+            <table class="table table-striped-columns">
+                <tr>
+
+                    <th>Field Name</th>
+                    <th>Field Date</th>
+                </tr>
+                <tr >
+                   <td>Course Name</td>
+                   <td th:text="${courseDto.name}"></td>
+                </tr>
+                <tr >
+                    <td>Course Price</td>
+                    <td th:text="${courseDto.price}"></td>
+                </tr>
+                <tr >
+                    <td>Is Nepali Board</td>
+                    <td th:text="${courseDto.isNepaliBoard}"></td>
+                </tr>
+                <tr >
+                    <td>Description</td>
+                    <td th:text="${courseDto.description}"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-6 mt-5">
+
+            <img th:src="${courseDto.filePath}" alt="NOT FOUND">
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

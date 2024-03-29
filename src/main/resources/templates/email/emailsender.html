@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Sender Service</title>
+
+</head>
+<body>
+
+<div class="container">
+    <div th:replace="~{fragments/navigation :: generic_css}"></div>
+    <div th:replace="~{fragments/navigation :: navbar}"></div>
+
+
+
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <h3>Send Simple Email</h3>
+            <hr>
+            <form th:action="@{~/email-service}" th:method="post" th:object="${emailDto}">
+
+                <div class="mb-3">
+                    <label>Receiver Email</label>
+                    <input class="form-control" placeholder="abc@gmail.com" required th:field="*{receiver}" type="text">
+                </div>
+                <br>
+
+                <div class="mb-3">
+                    <label>Subject</label>
+                    <input class="form-control" placeholder="Application for leave  " th:field="*{subject}" type="text" required>
+                </div>
+                <br>
+                <div class="mb-3">
+                    <label>Message</label>
+                    <textarea class="form-control" name="" id="" cols="30" rows="5" th:field="*{message}" required> </textarea>
+                </div>
+                <br>
+
+
+                <button class="btn btn-primary" type="submit">Send</button>
+                <button class="btn btn-danger" type="reset">Reset</button>
+            </form>
+
+
+        </div>
+        <div class="col-md-4">
+            <h3>Email with Attachment</h3>
+            <hr>
+
+            <form th:action="@{~/email-service/attachment}" enctype="multipart/form-data" th:method="post" th:object="${emailDto}">
+
+                <div class="mb-3">
+                    <label>Receiver Email</label>
+                    <input class="form-control" placeholder="abc@gmail.com" required th:field="*{receiver}" type="text">
+                </div>
+                <br>
+
+                <div class="mb-3">
+                    <label>Subject</label>
+                    <input class="form-control" placeholder="Application for leave  " th:field="*{subject}" type="text" required>
+                </div>
+                <br>
+                <div class="mb-3">
+                    <label>Message</label>
+                    <textarea class="form-control" name="" id="" cols="30" rows="5" th:field="*{message}" required> </textarea>
+                </div>
+                <br>
+                <div class="mb-3">
+                    <label>Attachment</label>
+                    <input type="file" class="form-control" name="" id=""  th:field="*{image}" required> </input>
+                </div>
+
+
+                <button class="btn btn-primary" type="submit">Send</button>
+                <button class="btn btn-danger" type="reset">Reset</button>
+            </form>
+
+        </div>
+        <div class="col-md-4">
+            empty space
+            <p style="font-style: italic" th:text="${message}"></p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

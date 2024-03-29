@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+    <div th:replace="~{fragments/navigation :: generic_css}"></div>
+    <div th:replace="~{fragments/navigation :: navbar}"></div>
+
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <h3> Course Form</h3>
+            <hr>
+            <form th:action="@{~/course}" th:method="post" enctype="multipart/form-data" th:object="${courseDto}">
+
+                <input th:field="*{id}" type="text" hidden>
+                <div class="mb-2">
+                    <label>Course Name</label>
+                    <input class="form-control" placeholder="Course Name" required th:field="*{name}" type="text">
+                </div>
+                <div class="mb-2">
+                    <label>Description</label>
+                    <textarea class="form-control" name="" id="" cols="30" rows="5" th:field="*{description}"> </textarea>
+                </div>
+
+                <div class="mb-2">
+                    <label>isNepaliBoard</label>
+                    <input th:field="*{isNepaliBoard}" th:value="true" type="checkbox">
+                </div>
+                <div class="mb-2">
+                    <label>Course Price</label>
+                    <input class="form-control" th:field="*{price}" type="text" required>
+                </div>
+
+                <div class="mb-2">
+                    <label>Course Image</label>
+                    <input class="form-control" th:field="*{courseFile}" type="file" required>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Submit</button>
+                <button class="btn btn-danger" type="reset">Reset</button>
+            </form>
+
+            <p style="font-style: italic" th:text="${message}"></p>
+        </div>
+        <div class="col-md-8">
+            <h3>Course Detail List</h3>
+            <hr>
+
+            <table class="table table-striped-columns">
+                <tr>
+                    <th>SN</th>
+                    <th>Course Name</th>
+                    <th>Price</th>
+                    <th>Nepali Board</th>
+                    <th>Action</th>
+                </tr>
+                <tr th:each="c, iter : ${courseDtoList}">
+                    <td th:text="${iter.index + 1}"></td>
+                    <td th:text="${c.name}"></td>
+                    <td th:text="${c.price}"></td>
+                    <td th:text="${c.isNepaliBoard? 'Yes': 'No'}"></td>
+
+                    <td>
+                        <a th:href="@{'/course/find-courseby-id/' + ${c.id}}">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a> &nbsp; &nbsp;
+                        <a th:href="@{'/course/find-courseby-edit-id/' + ${c.id}}">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </a> &nbsp; &nbsp;
+
+                        <a th:href="@{'/course/delete/' + ${c.id}}">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

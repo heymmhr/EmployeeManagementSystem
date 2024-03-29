@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+    <div th:replace="~{fragments/navigation :: generic_css}"></div>
+    <div th:replace="~{fragments/navigation :: navbar}"></div>
+
+
+    <div class="row">
+        <div class="col-md-4 mt-5">
+            <h3>Department Form</h3>
+            <hr>
+            <form th:action="@{~/department}" th:method="post" th:object="${departmentDto}">
+
+                <input th:field="*{id}" type="text" hidden>
+                <div class="mb-3">
+                    <label>DepartmentName</label>
+                    <input class="form-control" placeholder="Department Name" required th:field="*{name}" type="text">
+                </div>
+                <br>
+                <div class="mb-3">
+                    <label>Department Short Code</label>
+                    <input class="form-control" placeholder="Short Code" required th:field="*{shortCode}" type="text">
+                </div>
+                <br>
+                <div class="mb-3">
+                    <label>Department Status</label>
+                    <input th:field="*{status}" th:value="true" type="checkbox">
+                </div>
+                <br>
+
+                <button class="btn btn-primary" type="submit">Submit</button>
+                <button class="btn btn-danger" type="reset">Reset</button>
+            </form>
+
+            <p style="font-style: italic" th:text="${message}"></p>
+        </div>
+        <div class="col-md-8 mt-5">
+            <h2>Department List</h2>
+            <hr>
+
+            <table class="table table-striped-columns">
+                <tr>
+                    <th>SN</th>
+                    <th>Department Name</th>
+                    <th>Short Code</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                <tr th:each="d, iter : ${departmentDtoList}">
+                    <td th:text="${iter.index + 1}"></td>
+                    <td th:text="${d.name}"></td>
+                    <td th:text="${d.shortCode}"></td>
+                    <td th:text="${d.status? 'Active': 'Inactive'}"></td>
+
+                    <td>
+                        <a th:href="@{'/department/find-by-id/' + ${d.id}}">
+                            <button class="btn btn-info btn-sm">Edit</button>
+                        </a>
+
+                        <a th:href="@{'/department/delete/' + ${d.id}}">
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </a>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
